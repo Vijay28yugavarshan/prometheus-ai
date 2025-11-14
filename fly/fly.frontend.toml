@@ -1,0 +1,18 @@
+# fly.toml template for prometheus-frontend (static served by nginx)
+app = "prometheus-frontend"
+primary_region = "iad"
+
+[build]
+  image = "ghcr.io/<owner>/prometheus-frontend:latest"
+
+[[services]]
+  internal_port = 80
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
